@@ -9,7 +9,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sensors_plus_ohos/sensors_plus.dart';
-
+ 
 import 'snake.dart';
 
 void main() {
@@ -25,7 +25,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, this.title});
+  const MyHomePage({Key? key, this.title}) : super(key: key);
 
   final String? title;
 
@@ -104,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+            padding: const EdgeInsets.all(20.0),
             child: Table(
               columnWidths: const {
                 0: FlexColumnWidth(4),
@@ -267,7 +267,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _streamSubscriptions.add(
       userAccelerometerEventStream(samplingPeriod: sensorInterval).listen(
         (UserAccelerometerEvent event) {
-          final now = event.timestamp;
+          final now = DateTime.now();
           setState(() {
             _userAccelerometerEvent = event;
             if (_userAccelerometerUpdateTime != null) {
@@ -296,7 +296,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _streamSubscriptions.add(
       accelerometerEventStream(samplingPeriod: sensorInterval).listen(
         (AccelerometerEvent event) {
-          final now = event.timestamp;
+          final now = DateTime.now();
           setState(() {
             _accelerometerEvent = event;
             if (_accelerometerUpdateTime != null) {
@@ -325,7 +325,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _streamSubscriptions.add(
       gyroscopeEventStream(samplingPeriod: sensorInterval).listen(
         (GyroscopeEvent event) {
-          final now = event.timestamp;
+          final now = DateTime.now();
           setState(() {
             _gyroscopeEvent = event;
             if (_gyroscopeUpdateTime != null) {
@@ -354,7 +354,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _streamSubscriptions.add(
       magnetometerEventStream(samplingPeriod: sensorInterval).listen(
         (MagnetometerEvent event) {
-          final now = event.timestamp;
+          final now = DateTime.now();
           setState(() {
             _magnetometerEvent = event;
             if (_magnetometerUpdateTime != null) {
@@ -383,7 +383,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _streamSubscriptions.add(
       barometerEventStream(samplingPeriod: sensorInterval).listen(
         (BarometerEvent event) {
-          final now = event.timestamp;
+          final now = DateTime.now();
           setState(() {
             _barometerEvent = event;
             if (_barometerUpdateTime != null) {
