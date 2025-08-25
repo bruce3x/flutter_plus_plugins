@@ -28,9 +28,3 @@ migrate_working_dir/
 .dart_tool/
 .packages
 build/
-.hvigor
-dependencies
-oh_modules
-local.properties
-.metadata
-oh-package-lock.json5
