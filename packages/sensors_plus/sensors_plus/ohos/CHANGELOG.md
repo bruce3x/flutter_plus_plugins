@@ -1,12 +1,7 @@
-## 0.0.3
+## 1.0.1
 
-* Update plugin structure
-
-## 0.0.2
-
-* flutter: ">=3.7.0"
-
-## 0.0.1
+* Update flutter_lints flutter sdk dependencies
+ 
+## 1.0.0
 
 * Support OpenHarmony
-

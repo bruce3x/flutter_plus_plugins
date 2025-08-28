@@ -13,11 +13,8 @@
 * limitations under the License.
 */
 
-{
-  "modelVersion": "5.0.0",
-  "dependencies": {
-  },
-  "properties": {
-    "ohos.nativeResolver": false
-  }
+import abilityTest from './Ability.test'
+
+export default function testsuite() {
+  abilityTest()
 }
