@@ -21,10 +21,10 @@
 
 dependencies:
   sensors_plus_ohos:
-    git: 
+    git:
       url: https://gitcode.com/openharmony-sig/flutter_plus_plugins.git
       path: packages/sensors_plus/sensors_plus/ohos
-      ref: br_sensors_plus-v6.1.0_ohos
+      ref: br_sensors_plus-v7.0.0_ohos
 
 ...
 ```
@@ -47,7 +47,9 @@ flutter pub get
 
 在以下版本中已测试通过
 
-1. Flutter: 3.22.1-ohos-1.0.1; SDK: 5.0.0(12); IDE: DevEco Studio: 5.0.13.200; ROM: 5.1.0.120 SP3;
+1. Flutter: 3.22.1-ohos-1.0.1; SDK: 6.0.1.112(21); IDE: DevEco Studio: 6.0.1.260; ROM: 6.0.0.120 SP6;
+2. Flutter: 3.27.5-ohos-0.0.1; SDK: 6.0.1.112(21); IDE: DevEco Studio: 6.0.1.260; ROM: 6.0.0.120 SP6;
+3. Flutter: 3.35.8-ohos-0.0.1; SDK: 6.0.1.112(21); IDE: DevEco Studio: 6.0.1.260; ROM: 6.0.0.120 SP6;
 
 ### 2.2 权限要求
 
@@ -67,7 +69,7 @@ flutter pub get
 
 > [!TIP] "ohos Support"列为 yes 表示 ohos 平台支持该属性；no 则表示不支持；partially 表示部分支持。使用方法跨平台一致，效果对标 iOS 或 Android 的效果。
 
-### Sensors API 
+### Sensors API
 | Name                | Description                         | Type     | Input | Output  | ohos Support |
 |---------------------|-------------------------------------|----------|-------|---------|--------------|
 | accelerometerEventStream | 获取设备加速度计的广播流事件 | function | / | Stream<AccelerometerEvent> | yes |
@@ -82,7 +84,7 @@ flutter pub get
 
 > [!TIP] "ohos Support"列为 yes 表示 ohos 平台支持该属性；no 则表示不支持；partially 表示部分支持。使用方法跨平台一致，效果对标 iOS 或 Android 的效果。
 
-### AccelerometerEvent Filters 
+### AccelerometerEvent Filters
 | Name                | Description                         | Type     | Input | Output  | ohos Support |
 |---------------------|-------------------------------------|----------|-------|---------|--------------|
 | x                   | X轴方向加速度力（含重力，单位m/s²） | double | / | / | yes |
@@ -91,7 +93,7 @@ flutter pub get
 
 ---
 
-### GyroscopeEvent Filters 
+### GyroscopeEvent Filters
 | Name                | Description                         | Type     | Input | Output  | ohos Support |
 |---------------------|-------------------------------------|----------|-------|---------|--------------|
 | x                   | X轴旋转速率（单位rad/s，描述"俯仰角"） | double | / | / | yes |
@@ -100,7 +102,7 @@ flutter pub get
 
 ---
 
-### UserAccelerometerEvent Filters 
+### UserAccelerometerEvent Filters
 | Name                | Description                         | Type     | Input | Output  | ohos Support |
 |---------------------|-------------------------------------|----------|-------|---------|--------------|
 | x                   | X轴方向加速度力（不含重力，单位m/s²） | double | / | / | yes |
@@ -109,7 +111,7 @@ flutter pub get
 
 ---
 
-### MagnetometerEvent Filters 
+### MagnetometerEvent Filters
 | Name                | Description                         | Type     | Input | Output  | ohos Support |
 |---------------------|-------------------------------------|----------|-------|---------|--------------|
 | x                   | X轴环境磁场强度（单位μT） | double | / | / | yes |
@@ -118,7 +120,7 @@ flutter pub get
 
 ---
 
-### MagnetometerEvent Filters 
+### MagnetometerEvent Filters
 | Name                | Description                         | Type     | Input | Output  | ohos Support |
 |---------------------|-------------------------------------|----------|-------|---------|--------------|
 | pressure            | 传感器周围的气压（单位 hPa） | double   | / | / | yes |
