@@ -35,7 +35,6 @@ class StreamHandlerImpl implements StreamHandler {
 
   constructor(sensorId: sensor.SensorId) {
     this.sensorId = sensorId;
-    this.initSensorData(this.currentInterval);
   }
 
   private initSensorData(interval: number): void {
@@ -236,30 +235,71 @@ class StreamHandlerImpl implements StreamHandler {
   }
 
   setUpdateInterval(interval: number) {
+    let mapped: number = 0;
     switch (interval) {
       case 20000:
-        this.initSensorData(20000000);
+        mapped = 20000000;
         break;
       case 66667 :
-        this.initSensorData(66667000);
+        mapped = 66667000;
         break;
       case 200000:
-        this.initSensorData(200000000);
+        mapped = 200000000;
         break;
       case 500000:
-        this.initSensorData(500000000);
+        mapped = 500000000;
         break;
       case 1000000:
-        this.initSensorData(1000000000);
+        mapped = 1000000000;
         break;
+    }
+    if (mapped === 0) {
+      return;
+    }
+    // 无订阅时只记录采样间隔,待 onListen 时生效;有订阅时立即按新间隔重新注册。
+    if (this.event != null) {
+      this.initSensorData(mapped);
+    } else {
+      this.currentInterval = mapped;
     }
   }
 
+  // 隐私合规: 仅在 Dart 侧订阅时注册系统传感器,取消订阅立即注销,
+  // 避免应用启动即采集与后台占用传感器。
   onListen(args: ESObject, events: EventSink): void {
     this.event = events;
+    this.initSensorData(this.currentInterval);
   }
 
   onCancel(args: ESObject): void {
+    this.event = null;
+    this.stopSensor();
+  }
+
+  private stopSensor(): void {
+    // sensor.off 按具体 SensorId 字面量重载, 不能传泛型变量, 需逐个分发。
+    try {
+      switch (this.sensorId) {
+        case sensor.SensorId.LINEAR_ACCELEROMETER:
+          sensor.off(sensor.SensorId.LINEAR_ACCELEROMETER);
+          break;
+        case sensor.SensorId.ACCELEROMETER:
+          sensor.off(sensor.SensorId.ACCELEROMETER);
+          break;
+        case sensor.SensorId.GYROSCOPE:
+          sensor.off(sensor.SensorId.GYROSCOPE);
+          break;
+        case sensor.SensorId.MAGNETIC_FIELD:
+          sensor.off(sensor.SensorId.MAGNETIC_FIELD);
+          break;
+        case sensor.SensorId.BAROMETER:
+          sensor.off(sensor.SensorId.BAROMETER);
+          break;
+      }
+    } catch (error) {
+      let e: BusinessError = error as BusinessError;
+      console.error(`Failed to invoke off. Code: ${e.code}, message: ${e.message}`);
+    }
   }
 }
 
@@ -302,6 +342,12 @@ export default class SensorsPlusOhosPlugin implements FlutterPlugin, MethodCallH
     if (this.channel != null) {
       this.channel.setMethodCallHandler(null)
     }
+    // 引擎销毁时注销所有可能仍在监听的传感器。
+    this.accelerationStreamHandler?.onCancel(null);
+    this.gyroScopeStreamHandler?.onCancel(null);
+    this.magnetometerStreamHandler?.onCancel(null);
+    this.userAccelerationStreamHandler?.onCancel(null);
+    this.barometerStreamHandler?.onCancel(null);
   }
 
   onMethodCall(call: MethodCall, result: MethodResult): void {
